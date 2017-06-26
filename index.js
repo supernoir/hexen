@@ -1,30 +1,30 @@
-'use strict'
+'use strict';
 
-import React from 'react'
-import ReactDOM from 'react-dom'
-import axios from 'axios'
+import React from 'react';
+import ReactDOM from 'react-dom';
+import axios from 'axios';
 
-const topstories = []
-let accumulatedStories = {}
-const accumulatedTitles = []
-const accumulatedEditors = []
-const accumulatedIDs = []
+const topstories = [];
+let accumulatedStories = {};
+const accumulatedTitles = [];
+const accumulatedEditors = [];
+const accumulatedIDs = [];
 
 class NewsItem extends React.Component {
   constructor(props) {
-    super(props)
+    super(props);
     this.state = {
       news: []
-    }
+    };
   }
 
   componentWillMount() {
     axios
       .get('https://hacker-news.firebaseio.com/v0/topstories.json')
       .then(res => {
-        for (let i = 0; i < 10; i++) {
-          const newsItem = res.data[i]
-          topstories.push(newsItem)
+        for (let i = 0; i < 9; i++) {
+          const newsItem = res.data[i];
+          topstories.push(newsItem);
         }
         for (const topstory of topstories) {
           axios
@@ -32,23 +32,23 @@ class NewsItem extends React.Component {
               'https://hacker-news.firebaseio.com/v0/item/' + topstory + '.json'
             )
             .then(res => {
-              let newsID = Math.ceil(Math.random(10))
-              let newsTitle = res.data.title
-              let newsEditor = res.data.by
-              let newsScore = res.data.score
-              let newsURL = res.data.url
+              let newsID = Math.ceil(Math.random(10));
+              let newsTitle = res.data.title;
+              let newsEditor = res.data.by;
+              let newsScore = res.data.score;
+              let newsURL = res.data.url;
 
-              accumulatedTitles.push({ title: newsTitle })
-              accumulatedEditors.push({ editor: newsEditor })
-              accumulatedIDs.push({ id: newsID })
+              accumulatedTitles.push({ title: newsTitle });
+              accumulatedEditors.push({ editor: newsEditor });
+              accumulatedIDs.push({ id: newsID });
 
-              this.setState({ news: accumulatedTitles })
-            })
+              this.setState({ news: accumulatedTitles });
+            });
         }
         accumulatedStories = {
           titles: accumulatedTitles
-        }
-        console.log(accumulatedStories.titles)
+        };
+        console.log(accumulatedStories.titles);
         // let allTitles = accumulatedTitles.map(t => t.title)
         /*        accumulatedStories = [
           {
@@ -60,7 +60,7 @@ class NewsItem extends React.Component {
         //console.log(accumulatedTitles)
         //this.setState({ news: accumulatedStories })
         //console.log(titles)
-      })
+      });
   }
 
   render() {
@@ -79,7 +79,7 @@ class NewsItem extends React.Component {
           </li>
         ))}
       </ul>
-    )
+    );
   }
 }
 
@@ -90,7 +90,7 @@ class Hexen extends React.Component {
         <Header />
         <NewsItem />
       </div>
-    )
+    );
   }
 }
 
@@ -100,8 +100,8 @@ const Header = () => {
       <h1 className="brand">Hexen</h1>
       <p className="claim">A super creepy HackerNews client</p>
     </div>
-  )
-}
+  );
+};
 
-ReactDOM.render(<Hexen />, document.getElementById('app'))
-export default Hexen
+ReactDOM.render(<Hexen />, document.getElementById('app'));
+export default Hexen;
