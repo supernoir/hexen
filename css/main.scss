@@ -1,23 +1,59 @@
-@import url( 'https://fonts.googleapis.com/css?family=Lato|Lobster');
+@import url( 'https://fonts.googleapis.com/css?family=Lato|Vampiro+One');
+
+$purple: indigo;
 
 body {
-  background: antiquewhite;
+
   font-family: 'Lato', sans-serif;
-  background: linear-gradient(lightcoral, lavender);
+  background: linear-gradient(lightgreen, mediumpurple);
+
+  //background-image: url('../public/david-moum-238304.jpg');
+  //background-size: cover;
+  margin: 0;
+  padding: 0;
 }
 
 .app-container {
   width: 100%;
   text-align: center;
-  padding: 0 25%;
+  //margin: 0 25%;
 }
 
-h1 {
+.header {
+  background: linear-gradient(mediumpurple, rgba(indigo,0.6));
+  width: 100%;
+  height: 60px;
+  border-bottom: 2px solid rgba(black, 0.6);
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+
+  h1 {
+    margin: 0;
+    padding: 0 20px;
+    color: snow;
+    text-shadow: 0 2px 2px rgba(black, 0.2);
+    font-weight: bold;
+    font-family: 'Vampiro One';
+    font-size: 42px;
+  }
+
+  p.claim {
+    margin: 0;
+    padding: 22px 0;
+    display: inline;
+    color: lavender;
+    font-size: 14px;
+  }
+}
+
+a.menu {
   color: white;
-  text-shadow: 0 1px 1px rgba(black, 0.2);
-  font-weight: bold;
-  font-family: 'Lobster';
-  font-size: 42px;
+  text-decoration: none;
+
+  &:hover {
+    text-decoration: underline;
+  }
 }
 
 ul {
@@ -33,15 +69,49 @@ ul {
 li {
   width: 33%;
   margin: 10px;
-
-  background: rgba(#000, 0.2);
+  text-align: left;
+  background: rgba(#fff, 0.8);
+  box-shadow: 0 1px 1px rgba(black, 0.2);
 }
 
 .news-item-head {
-  background: rgba(#000, 0.2);
+
+  background: rgba($purple, 0.2);
+  border-bottom: 1px solid $purple;
   padding: 10px;
+  font-size: 16px;
+  color: $purple;
 }
 
 .news-item-body {
   padding: 10px;
+}
+
+.news-item-footer {
+  background: rgba(black, 0.05);
+  margin-bottom: 0;
+  padding: 10px;
+}
+
+p.news-item-excerpt {
+  font-size: 14px;
+  color: $purple;
+}
+
+p.news-item-editor {
+  color: rgba(black, 0.4);
+  display: inline;
+  padding: 0;
+  margin: 0;
+  font-size: 12px;
+  font-weight: bold;
+  padding-right: 6px;
+}
+
+p.news-item-time {
+  color: rgba(black, 0.4);
+  display: inline;
+  padding: 0;
+  margin: 0;
+  font-size: 12px;
 }

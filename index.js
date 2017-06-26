@@ -69,7 +69,13 @@ class NewsItem extends React.Component {
         {this.state.news.map(n => (
           <li>
             <div className="news-item-head">{n.title}</div>
-            <div className="news-item-body">Lorem Ipsum</div>
+            <div className="news-item-body">
+              <p className="news-item-excerpt">{'lorem ipsum'}</p>
+            </div>
+            <div className="news-item-footer">
+              <p className="news-item-editor">{'supernoir'}</p>
+              <p className="news-item-time">{'26-06-2017'}</p>
+            </div>
           </li>
         ))}
       </ul>
@@ -81,11 +87,20 @@ class Hexen extends React.Component {
   render() {
     return (
       <div className="app-container">
-        <h1>Hexen</h1>
+        <Header />
         <NewsItem />
       </div>
     )
   }
+}
+
+const Header = () => {
+  return (
+    <div className="header">
+      <h1 className="brand">Hexen</h1>
+      <p className="claim">A super creepy HackerNews client</p>
+    </div>
+  )
 }
 
 ReactDOM.render(<Hexen />, document.getElementById('app'))
