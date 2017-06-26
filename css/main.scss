@@ -1,0 +1,47 @@
+@import url( 'https://fonts.googleapis.com/css?family=Lato|Lobster');
+
+body {
+  background: antiquewhite;
+  font-family: 'Lato', sans-serif;
+  background: linear-gradient(lightcoral, lavender);
+}
+
+.app-container {
+  width: 100%;
+  text-align: center;
+  padding: 0 25%;
+}
+
+h1 {
+  color: white;
+  text-shadow: 0 1px 1px rgba(black, 0.2);
+  font-weight: bold;
+  font-family: 'Lobster';
+  font-size: 42px;
+}
+
+ul {
+  display: flex;
+  flex-direction: row;
+  flex-flow: row wrap;
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+
+}
+
+li {
+  width: 33%;
+  margin: 10px;
+
+  background: rgba(#000, 0.2);
+}
+
+.news-item-head {
+  background: rgba(#000, 0.2);
+  padding: 10px;
+}
+
+.news-item-body {
+  padding: 10px;
+}

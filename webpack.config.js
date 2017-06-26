@@ -1,10 +1,10 @@
-const webpack = require('webpack');
+const webpack = require('webpack')
 
 module.exports = {
   entry: './index.js',
   output: {
     path: __dirname + '/dist',
-    filename: 'bundle.js',
+    filename: 'bundle.js'
   },
   module: {
     loaders: [
@@ -13,14 +13,13 @@ module.exports = {
         loader: 'babel-loader',
         exclude: /node_modules/,
         query: {
-          presets: ['react', 'es2015'],
-        },
+          presets: ['react', 'es2015']
+        }
       },
       {
         loaders: ['style-loader', 'css-loader', 'sass-loader'],
-        test: /\.scss$/,
-      },
-    ],
-  },
-};
-
+        test: /\.scss$/
+      }
+    ]
+  }
+}

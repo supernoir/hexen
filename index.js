@@ -1,18 +1,21 @@
-'use strict';
+'use strict'
 
-import React from 'react';
-import ReactDOM from 'react-dom';
-import axios from 'axios';
+import React from 'react'
+import ReactDOM from 'react-dom'
+import axios from 'axios'
 
-const topstories = [];
-let accumulatedStories = [];
+const topstories = []
+let accumulatedStories = {}
+const accumulatedTitles = []
+const accumulatedEditors = []
+const accumulatedIDs = []
 
-class Hexen extends React.Component {
-  constructor() {
-    super();
+class NewsItem extends React.Component {
+  constructor(props) {
+    super(props)
     this.state = {
-      news: [],
-    };
+      news: []
+    }
   }
 
   componentWillMount() {
@@ -20,41 +23,70 @@ class Hexen extends React.Component {
       .get('https://hacker-news.firebaseio.com/v0/topstories.json')
       .then(res => {
         for (let i = 0; i < 10; i++) {
-          const newsItem = res.data[i];
-          topstories.push(newsItem);
+          const newsItem = res.data[i]
+          topstories.push(newsItem)
         }
         for (const topstory of topstories) {
-          console.log(topstory);
           axios
             .get(
               'https://hacker-news.firebaseio.com/v0/item/' + topstory + '.json'
             )
             .then(res => {
-              let newsTitle = res.data.title;
-              accumulatedStories.push(newsTitle);
-              //console.log(accumulatedStories);
-            });
-        }
-      });
+              let newsID = Math.ceil(Math.random(10))
+              let newsTitle = res.data.title
+              let newsEditor = res.data.by
+              let newsScore = res.data.score
+              let newsURL = res.data.url
 
-    this.setState({accumulatedStories});
-    console.log(accumulatedStories);
+              accumulatedTitles.push({ title: newsTitle })
+              accumulatedEditors.push({ editor: newsEditor })
+              accumulatedIDs.push({ id: newsID })
+
+              this.setState({ news: accumulatedTitles })
+            })
+        }
+        accumulatedStories = {
+          titles: accumulatedTitles
+        }
+        console.log(accumulatedStories.titles)
+        // let allTitles = accumulatedTitles.map(t => t.title)
+        /*        accumulatedStories = [
+          {
+            title: accumulatedTitles[0],
+            copy: 'Hello World'
+          }
+        ]*/
+
+        //console.log(accumulatedTitles)
+        //this.setState({ news: accumulatedStories })
+        //console.log(titles)
+      })
   }
 
   render() {
     return (
-      <div>
-        <h1>Hexen</h1>
+      <ul>
         {this.state.news.map(n => (
           <li>
-            {n}
+            <div className="news-item-head">{n.title}</div>
+            <div className="news-item-body">Lorem Ipsum</div>
           </li>
         ))}
-      </div>
-    );
+      </ul>
+    )
   }
 }
 
-ReactDOM.render(<Hexen />, document.getElementById('app'));
-export default Hexen;
+class Hexen extends React.Component {
+  render() {
+    return (
+      <div className="app-container">
+        <h1>Hexen</h1>
+        <NewsItem />
+      </div>
+    )
+  }
+}
 
+ReactDOM.render(<Hexen />, document.getElementById('app'))
+export default Hexen
