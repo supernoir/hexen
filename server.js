@@ -1,15 +1,34 @@
-const express = require('express')
-const app = express()
-const port = 5555 || process.env.port
-const axios = require('axios')
+const express = require('express');
+const app = express();
+const port = 5555 || process.env.port;
+const axios = require('axios');
 
-const topstories = []
-let accumulatedStories = {}
-const accumulatedTitles = []
-const accumulatedEditors = []
-const accumulatedIDs = []
-const accumulatedScores = []
-const accumulatedURIs = []
+const moment = require('moment');
+
+const topstories = [];
+let accumulatedStories = [];
+const accumulatedTitles = [];
+const accumulatedEditors = [];
+const accumulatedIDs = [];
+const accumulatedScores = [];
+const accumulatedURIs = [];
+const allStories = [];
+const accumulatedTexts = [];
+const accumulatedTimes = [];
+const accumulatedTypes = [];
+
+app.use(function(request, response, next) {
+  response.header('Access-Control-Allow-Origin', '*');
+  response.header(
+    'Access-Control-Allow-Headers',
+    'Origin, X-Requested-With, Content-Type, Accept'
+  );
+  response.header(
+    'Access-Control-Allow-Methods',
+    'POST, GET, PUT, DELETE, OPTIONS'
+  );
+  next();
+});
 
 const getAllTopStories = () => {
   const fetchTopStories = new Promise((resolve, reject) => {
@@ -17,8 +36,8 @@ const getAllTopStories = () => {
       .get('https://hacker-news.firebaseio.com/v0/topstories.json')
       .then(allStories => {
         for (let i = 0; i < 9; i++) {
-          const newsItem = allStories.data[i]
-          topstories.push(newsItem)
+          const newsItem = allStories.data[i];
+          topstories.push(newsItem);
         }
         for (const topstory of topstories) {
           axios
@@ -26,64 +45,56 @@ const getAllTopStories = () => {
               'https://hacker-news.firebaseio.com/v0/item/' + topstory + '.json'
             )
             .then(stories => {
-              let newsID = Math.ceil(Math.random(10))
-              let newsTitle = stories.data.title
-              let newsEditor = stories.data.by
-              let newsScore = stories.data.score
-              let newsURI = stories.data.url
+              let timestamp = moment.unix(stories.data.time);
 
-              accumulatedIDs.push({ id: newsID })
-              accumulatedTitles.push({ title: newsTitle })
-              accumulatedEditors.push({ editor: newsEditor })
-              accumulatedScores.push({ score: newsScore })
-              accumulatedURIs.push({ uri: newsURI })
+              timestamp.format('MMMM Do YYYY, h:mm:ss a');
 
-              accumulatedStories = {
-                stories: {
-                  ids: accumulatedIDs,
-                  titles: accumulatedTitles,
-                  editors: accumulatedEditors,
-                  scores: accumulatedScores,
-                  uris: accumulatedURIs
-                }
+              accumulatedIDs.push(1);
+              accumulatedEditors.push(stories.data.by);
+              accumulatedTitles.push(stories.data.title);
+              accumulatedScores.push(stories.data.score);
+              accumulatedURIs.push(stories.data.url);
+              accumulatedTexts.push(stories.data.text);
+              accumulatedTimes.push(timestamp);
+              accumulatedTypes.push(stories.data.type);
+
+              for (let s = 0; s < 9; s++) {
+                accumulatedStories[s] = [
+                  {
+                    id: s,
+                    title: accumulatedTitles[s],
+                    editor: accumulatedEditors[s],
+                    score: accumulatedScores[s],
+                    uri: accumulatedURIs[s],
+                    text: accumulatedTexts[s],
+                    type: accumulatedTypes[s],
+                    time: accumulatedTimes[s]
+                  }
+                ];
               }
 
-              resolve(accumulatedStories)
+              resolve(accumulatedStories);
+              reject('Error');
             })
+            .catch(err => console.error(err));
         }
-      })
-  })
+      });
+  });
 
   fetchTopStories.then(data => {
-    app.get('/topstories', (req, res) => {
-      res.json({ hi: data })
-    })
-  })
-}
+    app.get('/stories/top', (req, res) => {
+      res.json({ stories: data });
+    });
+  });
+};
 
-getAllTopStories()
+getAllTopStories();
 
-const fakeApiCall = [
-  { id: 0, title: 'Lorem Ipsum', editor: 'foo', uri: 'https://spiegel.de' },
-  { id: 1, title: 'Dolor Sit Amet', editor: 'bar', uri: 'https://google.com' }
-]
-
-app.listen(port)
-console.log(`App listening on port ${port}`)
-
-app.get('/stories/top', (req, res) => {
-  let fetchTopStories = new Promise((resolve, reject) => {
-    resolve(fakeApiCall)
-  })
-  fetchTopStories.then(data => {
-    res.json({
-      stories: data
-    })
-  })
-})
+app.listen(port);
+console.log(`App listening on port ${port}`);
 
 app.get('/', (req, res) => {
   res.json({
     stories: 'Hello World'
-  })
-})
+  });
+});
