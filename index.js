@@ -37,13 +37,17 @@ class NewsItem extends React.Component {
               <p className="news-item-type">{n.type}</p>
               <a href={n.uri} className="news-item-link">{n.title}</a>
             </div>
+
             <div className="news-item-body">
-              <p className="news-item-excerpt">{n.uri}</p>
-            </div>
-            <div className="news-item-footer">
-              <p className="news-item-editor">Editor: {n.editor}</p>
-              <p className="news-item-time">Score: {n.score}</p>
-              <p className="news-item-title">Time: {n.time}</p>
+              <p className="news-item-editor">
+                <p className="news-item_emphasized">Editor:</p> {n.editor}
+              </p>
+              <p className="news-item-score">
+                <p className="news-item_emphasized">Score:</p> {n.score}
+              </p>
+              <p className="news-item-time">
+                <p className="news-item_emphasized">Time:</p> {n.time}
+              </p>
 
             </div>
           </li>

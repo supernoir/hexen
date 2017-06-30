@@ -46,8 +46,7 @@ const getAllTopStories = () => {
             )
             .then(stories => {
               let timestamp = moment.unix(stories.data.time);
-
-              timestamp.format('MMMM Do YYYY, h:mm:ss a');
+              timestamp = moment().format('MMMM Do YYYY, h:mm:ss a');
 
               accumulatedIDs.push(1);
               accumulatedEditors.push(stories.data.by);
