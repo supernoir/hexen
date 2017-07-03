@@ -9,17 +9,16 @@
 // $primary: indigo;
 // $secondary: salmon;
 // $tertiary: orchid;
- 
+
 // GHOUL
 // $primary: darkslateblue;
 // $secondary: lawngreen;
 // $tertiary: PALETURQUOISE;
 
 // WITCH
- $primary: midnightblue;
- $secondary: aquamarine;
- $tertiary: powderblue;
-
+$primary: midnightblue;
+$secondary: aquamarine;
+$tertiary: powderblue;
 
 body {
   font-family: 'Fira Mono', sans-serif;
@@ -48,6 +47,7 @@ body {
   flex-direction: row;
   flex-wrap: nowrap;
   padding-bottom: 6px;
+  justify-content: space-between;
 
   h1 {
     margin: 0;
@@ -56,7 +56,7 @@ body {
     background: -webkit-linear-gradient($tertiary, $secondary);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
-    text-shadow: 0 2px 0px rgba($secondary, 0.4);
+    text-shadow: 0 2px 0 rgba($secondary, 0.4);
     font-weight: bold;
     font-family: 'VT323';
     font-size: 60px;
@@ -100,10 +100,11 @@ li {
   background: rgba(#fff, 0.8);
   box-shadow: 0 1px 0 rgba(black, 0.2);
   border: 1px solid $primary;
-  &:hover{
+
+  &:hover {
     border: 1px solid $primary;
 
-    box-shadow: 0px 4px 0px rgba(black, 0.1);
+    box-shadow: 0 4px 0 rgba(black, 0.1);
   }
 
 }
@@ -117,11 +118,11 @@ li {
   font-weight: normal;
   color: $primary;
 
-
 }
 
 .news-item-body {
   padding: 10px;
+  min-height: 40px;
 }
 
 .news-item-footer {
@@ -136,22 +137,28 @@ p.news-item-excerpt {
 }
 
 p.news-item-editor,
-p.news-item-time ,
-p.news-item-score  {
+p.news-item-score,
+p.news-item-time {
   color: rgba(black, 0.4);
   display: block;
   padding: 0;
   margin: 0;
   font-size: 10px;
   padding-right: 6px;
-   
-  .news-item_emphasized {
-    display: inline;
+
+  .news-item_group {
+    display: inline-block;
+    width: 50px;
+    margin: 2px 0;
     color: $primary;
     font-weight: bold;
   }
-}
 
+  .news-item_element {
+    display: inline;
+    color: $primary;
+  }
+}
 
 p.news-item-type {
   width: auto;
@@ -166,21 +173,59 @@ p.news-item-type {
   font-size: 10px;
 }
 
-a.news-item-link{
+a.news-item-link {
   display: block;
   margin-top: 12px;
   padding: 4px;
   color: $primary;
-  font-size: 20px;
+  font-size: 18px;
   font-weight: bold;
   text-decoration: none;
-  text-shadow: 0px 2px 0px rgba($primary, .1);
+  text-shadow: 0 2px 0 rgba($primary, .1);
 
-
-
-&:hover{
+  &:hover {
     color: $primary;
   }
 
 }
-  
+
+.button-wrapper {
+  .button {
+    display: block;
+    color: white;
+    background: transparent;
+    border: 2px solid white;
+    border-radius: 4px;
+    margin: 16px 8px;
+    text-decoration: none;
+    padding: 4px;
+
+    &:hover {
+      color: $primary;
+      background: white;
+
+    }
+  }
+}
+
+// typography
+
+.dashed {
+  border-bottom: 1px dashed white;
+}
+
+// Links
+
+a.link_secondary {
+  color: $secondary;
+  text-decoration: none;
+
+  &:active,
+  &:visited {
+    color: $tertiary;
+  }
+
+  &:hover {
+    text-decoration: underline;
+  }
+}
