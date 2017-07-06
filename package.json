@@ -4,7 +4,7 @@
   "main": "electron.js",
   "scripts": {
     "test": "mocha",
-    "build": "webpack --optimize-minimize",
+    "build": "webpack -p --optimize-minimize",
     "start": "webpack-dev-server & sass --watch ./css"
   },
   "author": "supernoir <kawohl.bentodesign@gmail.com>",
