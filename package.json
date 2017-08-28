@@ -3,9 +3,9 @@
   "version": "0.0.1",
   "main": "electron.js",
   "scripts": {
-    "test": "mocha",
     "build": "NODE_ENV=production webpack --config ./webpack.config.js --progress --colors",
-    "start": "node ./server.js & sass --watch ./css"
+    "start": "node ./server.js & sass --watch ./css",
+    "test": "mocha server.spec.js"
   },
   "author": "supernoir <kawohl.bentodesign@gmail.com>",
   "license": "MIT",
@@ -18,10 +18,13 @@
     "babel-preset-es2015": "^6.24.1",
     "babel-preset-react": "^6.24.1",
     "body-parser": "^1.17.2",
+    "chai": "^4.1.1",
+    "chai-http": "^3.0.0",
     "cors": "^2.8.3",
     "css-loader": "^0.28.4",
     "electron": "^1.6.11",
     "express": "^4.15.3",
+    "mocha": "^3.5.0",
     "moment": "^2.18.1",
     "nodemon": "^1.11.0",
     "react": "^15.6.1",
